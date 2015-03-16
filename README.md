@@ -1,2 +1,2 @@
 # jmxtrans-generator
-Easily generates jmxtrans configuration files
+Easily generates jmxtrans configuration files.
