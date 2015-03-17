@@ -1,6 +1,6 @@
 {
     "servers": {
-        "zuq06-flitsmobi-gps": {
+        "server-example-1": {
             "numQueryThreads": 2,
             "port": "9001",
             "host": "localhost",
@@ -21,7 +21,7 @@
             ]
         },
 
-        "zuq06-kafka": {
+        "server-example-kafka": {
             "numQueryThreads": 1,
             "port": "9998",
             "host": "localhost",
@@ -94,27 +94,6 @@
             "resultAlias": "threads",
             "attr": ["DaemonThreadCount", "ThreadCount"]
         },
-
-        "geocodeReq": {
-            "obj": "metrics:name=br.com.zuq.openls.reversegeocode.ReverseGeocodeAgent.requests",
-            "attr": ["Count, OneMinuteRate"]
-        },
-
-        "geocodeUnsuccess": {
-            "obj": "metrics:name=br.com.zuq.openls.reversegeocode.ReverseGeocodeAgent.unsuccessCount",
-            "attr": ["Count"]
-        },
-
-        "pointsSave": {
-            "obj": "metrics:name=br.com.zuq.ut.commons.tracking.service.TrackingService.points.save",
-            "attr": ["OneMinuteRate", "Count", "99thPercentile"]
-        },
-
-        "pointsFind": {
-            "obj": "metrics:name=br.com.zuq.ut.commons.tracking.service.TrackingService.points.find",
-            "attr": ["OneMinuteRate", "Count", "99thPercentile"]
-        },
-
 
         "kafkaBroker": {
             "obj": "kafka:type=kafka.BrokerAllTopicStat",
