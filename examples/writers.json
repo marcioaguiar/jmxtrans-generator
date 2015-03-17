@@ -1,0 +1,22 @@
+{
+
+    "keyOut": {
+        "@class": "com.googlecode.jmxtrans.model.output.KeyOutWriter",
+        "settings": {
+            "outputFile": "keyout2.txt",
+            "maxLogFileSize": "10MB",
+            "maxLogBackupFiles": 200,
+            "delimiter": "\t",
+            "debug": true,
+            "typeNames": ["name"]
+        }
+    },
+    
+    "librato": {
+        "@class": "com.googlecode.jmxtrans.model.output.LibratoWriter",
+        "settings": {
+            "username": "user@example.com",
+            "token": "af8f7a8500a9d385adf788aeaf24d91449d12cdfeb"
+        }
+    }
+}

@@ -1,0 +1,70 @@
+{
+
+    "dropwizard": {
+        "resultAlias": "dropwizard-request",
+        "obj": "metrics:name=io.dropwizard.jetty.MutableServletContextHandler.requests",
+        "attr": ["OneMinuteRate", "99thPercentile", "Count"]
+    },
+
+    "tomcatRequests": {
+        "resultAlias": "tomcat7-requests",
+        "obj": "Catalina:type=GlobalRequestProcessor,name=*",
+        "attr": ["errorCount", "requestCount"]
+    },
+
+    "tomcatDatasources": {
+        "obj": "Catalina:type=DataSource,class=javax.sql.DataSource,name=*",
+        "resultAlias": "tomcat-datasources",
+        "attr": ["numActive", "numIdle"]
+    },
+
+    "jvmSystem": {
+        "obj": "java.lang:type=OperatingSystem",
+        "attr": ["SystemLoadAverage", "FreePhysicalMemorySize", "FreeSwapSpaceSize"]
+    },
+
+    "jvmHeap": {
+        "obj": "java.lang:type=Memory",
+        "resultAlias": "heap",
+        "attr": ["HeapMemoryUsage", "NonHeapMemoryUsage"]
+    },
+
+    "jvmGc": {
+        "obj": "java.lang:type=GarbageCollector,name=*",
+        "resultAlias": "gc",
+        "attr": ["CollectionCount", "CollectionTime"]
+    },
+
+    "jvmThread": {
+        "obj": "java.lang:type=Threading",
+        "resultAlias": "threads",
+        "attr": ["DaemonThreadCount", "ThreadCount"]
+    },
+
+    "kafkaBroker": {
+        "obj": "kafka:type=kafka.BrokerAllTopicStat",
+        "attr": ["BytesIn", "BytesOut", "FailedFetchRequest", "FailedProduceRequest", "MessagesIn"]
+    },
+
+    "kafkaLog": {
+        "obj": "kafka:type=kafka.LogFlushStats",
+        "attr": ["FlushesPerSecond", "NumFlushes"]
+    },
+    "kafkaSocket": {
+        "obj": "kafka:type=kafka.SocketServerStats",
+        "attr": ["FetchRequestsPerSecond", "ProduceRequestsPerSecond"]
+    },
+
+    "hbaseMaster": {
+        "obj": "Hadoop:service=HBase,name=Master,sub=Server",
+        "attr": ["averageLoad", "numRegionServers", "numDeadRegionServers"],
+        "resultAlias": "sdhbase.Master.Server"
+    },
+
+    "hbaseRegion": {
+        "obj": "Hadoop:service=HBase,name=RegionServer,sub=Server",
+        "attr": ["memStoreSize", "storeCount", "readRequestCount", "storeFileIndexSize", "writeRequestCount"],
+        "resultAlias": "sdhbase.RegionServer.RegionServerStatistics"
+    }
+
+}
