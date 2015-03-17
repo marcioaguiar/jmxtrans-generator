@@ -1,0 +1,147 @@
+{
+    "servers": {
+        "zuq06-flitsmobi-gps": {
+            "numQueryThreads": 2,
+            "port": "9001",
+            "host": "localhost",
+            "username": "collector",
+            "password": "1234567890",
+            "writers": ["keyOut"],
+            "queries": [
+                "jvmSystem",
+                "tomcatRequests",
+                "tomcatDatasources",
+                "jvmHeap",
+                "jvmGc",
+                "jvmThread",
+                "geocodeReq",
+                "geocodeUnsuccess",
+                "pointsSave",
+                "pointsFind"
+            ]
+        },
+
+        "zuq06-kafka": {
+            "numQueryThreads": 1,
+            "port": "9998",
+            "host": "localhost",
+            "username": "collector",
+            "password": "1234567890",
+            "writers": ["keyOut"],
+            "queries": ["kafkaBroker", "kafkaLog", "kafkaSocket"]
+        }
+    },
+
+    "outputWriters": {
+        "keyOut": {
+            "@class": "com.googlecode.jmxtrans.model.output.KeyOutWriter",
+            "settings": {
+                "outputFile": "keyout2.txt",
+                "maxLogFileSize": "10MB",
+                "maxLogBackupFiles": 200,
+                "delimiter": "\t",
+                "debug": true,
+                "typeNames": ["name"]
+            }
+        },
+        "librato": {
+            "@class": "com.googlecode.jmxtrans.model.output.LibratoWriter",
+            "settings": {
+                "username": "user@example.com",
+                "token": "af8f7a8500a9d385adf788aeaf24d91449d12cdfeb"
+            }
+        }
+    },
+
+    "queries": {
+        "dropwizard": {
+            "resultAlias": "dropwizard-request",
+            "obj": "metrics:name=io.dropwizard.jetty.MutableServletContextHandler.requests",
+            "attr": ["OneMinuteRate", "99thPercentile", "Count"]
+        },
+
+        "tomcatRequests": {
+            "resultAlias": "tomcat7-requests",
+            "obj": "Catalina:type=GlobalRequestProcessor,name=*",
+            "attr": ["errorCount", "requestCount"]
+        },
+
+        "tomcatDatasources": {
+            "obj": "Catalina:type=DataSource,class=javax.sql.DataSource,name=*",
+            "resultAlias": "tomcat-datasources",
+            "attr": ["numActive", "numIdle"]
+        },
+
+        "jvmSystem": {
+            "obj": "java.lang:type=OperatingSystem",
+            "attr": ["SystemLoadAverage", "FreePhysicalMemorySize", "FreeSwapSpaceSize"]
+        },
+
+        "jvmHeap": {
+            "obj": "java.lang:type=Memory",
+            "resultAlias": "heap",
+            "attr": ["HeapMemoryUsage", "NonHeapMemoryUsage"]
+        },
+
+        "jvmGc": {
+            "obj": "java.lang:type=GarbageCollector,name=*",
+            "resultAlias": "gc",
+            "attr": ["CollectionCount", "CollectionTime"]
+        },
+
+        "jvmThread": {
+            "obj": "java.lang:type=Threading",
+            "resultAlias": "threads",
+            "attr": ["DaemonThreadCount", "ThreadCount"]
+        },
+
+        "geocodeReq": {
+            "obj": "metrics:name=br.com.zuq.openls.reversegeocode.ReverseGeocodeAgent.requests",
+            "attr": ["Count, OneMinuteRate"]
+        },
+
+        "geocodeUnsuccess": {
+            "obj": "metrics:name=br.com.zuq.openls.reversegeocode.ReverseGeocodeAgent.unsuccessCount",
+            "attr": ["Count"]
+        },
+
+        "pointsSave": {
+            "obj": "metrics:name=br.com.zuq.ut.commons.tracking.service.TrackingService.points.save",
+            "attr": ["OneMinuteRate", "Count", "99thPercentile"]
+        },
+
+        "pointsFind": {
+            "obj": "metrics:name=br.com.zuq.ut.commons.tracking.service.TrackingService.points.find",
+            "attr": ["OneMinuteRate", "Count", "99thPercentile"]
+        },
+
+
+        "kafkaBroker": {
+            "obj": "kafka:type=kafka.BrokerAllTopicStat",
+            "attr": ["BytesIn", "BytesOut", "FailedFetchRequest", "FailedProduceRequest", "MessagesIn"]
+        },
+
+        "kafkaLog": {
+            "obj": "kafka:type=kafka.LogFlushStats",
+            "attr": ["FlushesPerSecond", "NumFlushes"]
+        },
+        "kafkaSocket": {
+            "obj": "kafka:type=kafka.SocketServerStats",
+            "attr": ["FetchRequestsPerSecond", "ProduceRequestsPerSecond"]
+        },
+
+        "hbaseMaster": {
+            "obj": "Hadoop:service=HBase,name=Master,sub=Server",
+            "attr": ["averageLoad", "numRegionServers", "numDeadRegionServers"],
+            "resultAlias": "sdhbase.Master.Server"
+        },
+
+        "hbaseRegion": {
+            "obj": "Hadoop:service=HBase,name=RegionServer,sub=Server",
+            "attr": ["memStoreSize", "storeCount", "readRequestCount", "storeFileIndexSize", "writeRequestCount"],
+            "resultAlias": "sdhbase.RegionServer.RegionServerStatistics"
+        }
+
+    }
+
+}
