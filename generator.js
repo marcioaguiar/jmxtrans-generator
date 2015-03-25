@@ -17,7 +17,9 @@ function start(serverFile, writersFile, queriesFile, output) {
 
 	_.forIn(inputServers, function(server, serverName) {
 		console.log('configuring server', serverName);
-		servers.push(configureServer(server, queries, writers));
+		var sv = configureServer(server, queries, writers);
+		sv.alias = serverName;
+		servers.push(sv);
 	});
 
 	var content = JSON.stringify({ servers: servers });

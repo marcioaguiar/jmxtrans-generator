@@ -11,7 +11,7 @@ of the configuration file and allow the reuse of such.
 ## Using jmxtrans-generator
 
 ```shell
-node generator.js [input] [output]
+node generator.js [servers-file] [writers-file] [queries-file] [output]
 ```
 
 - **input** - the input file
@@ -30,6 +30,6 @@ The input file must be a JSON file with exact three attributes
 
 ```
 
-See jmxtrans [queries documentation] (https://github.com/jmxtrans/jmxtrans/wiki/Queries) for an explanation of each property.
+See jmxtrans [queries documentation](https://github.com/jmxtrans/jmxtrans/wiki/Queries) for an explanation of each property.
 
-You can see the [example-configuration] (https://github.com/marcioaguiar/jmxtrans-generator/blob/master/example-configuration.json) for further details.
+You can see the [example-configuration](https://github.com/marcioaguiar/jmxtrans-generator/blob/master/example-configuration.json) for further details.
